@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amr Ebrahim Kamal — Full-Stack Developer & Automation Engineer</title>
+<meta name="description" content="Amr Ebrahim Kamal — Full-Stack Developer, Business Analyst, and Automation Engineer based in Cairo, Egypt.">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --black:    #0a0a0e;
+  --ink:      #1a1b22;
+  --char:     #2c2d36;
+  --g-700:    #3a3d4a;
+  --g-500:    #6e7280;
+  --g-400:    #9ca0ac;
+  --g-200:    #d8dae0;
+  --g-100:    #e8eaf0;
+  --g-50:     #f5f6f8;
+  --paper:    #fafbfc;
+  --white:    #ffffff;
+  --orange:   #ff6b1a;
+  --or-dark:  #e85a0c;
+  --or-soft:  #fff1e8;
+  --blue:     #2553f5;
+  --bl-dark:  #1a3fc9;
+  --bl-soft:  #ecf0ff;
+  --green:    #16a34a;
+  --shadow-sm:0 2px 6px rgba(10,10,14,.06);
+  --shadow:   0 6px 24px rgba(10,10,14,.08);
+  --shadow-lg:0 16px 48px rgba(10,10,14,.12);
+}
+
+/* ═══════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* selection */
+::selection { background: var(--orange); color: white; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--g-50); }
+::-webkit-scrollbar-thumb { background: var(--g-400); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideRight {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,26,.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(255,107,26,0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s, transform .8s; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════
+   STICKY NAV
+═══════════════════════════════════════════════ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--g-100);
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: transform .2s;
+}
+.nav-logo:hover { transform: translateY(-1px); }
+.nav-logo-mark {
+  flex-shrink: 0;
+  transition: transform .35s ease;
+}
+.nav-logo:hover .nav-logo-mark { transform: rotate(-8deg); }
+.nav-logo-name {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 16px;
+  letter-spacing: -.5px;
+  color: var(--black);
+}
+.nav-logo .dot { color: var(--orange); }
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--g-500);
+  text-decoration: none;
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a:hover { color: var(--orange); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 50%;
+  width: 0; height: 2px;
+  background: var(--orange);
+  transition: width .25s, left .25s;
+}
+.nav-links a:hover::after { width: 100%; left: 0; }
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--black);
+  color: white;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+.nav-cta:hover { background: var(--orange); transform: translateY(-1px); }
+
+/* hamburger button */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background .2s;
+}
+.nav-burger:hover { background: var(--g-50); }
+.nav-burger span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 720px) {
+  .nav-burger { display: flex; }
+  .nav-inner { padding: 12px 18px; }
+  .nav-logo-name { display: none; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: rgba(255,255,255,.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--g-100);
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0 16px;
+    box-shadow: var(--shadow);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+  .nav-links a::after { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   CONTAINER
+═══════════════════════════════════════════════ */
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 720px) {
+  .wrap { padding: 0 18px; }
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  padding: 80px 0 100px;
+  overflow: hidden;
+}
+
+/* decorative bg */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,107,26,.08), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(37,83,245,.08), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--or-soft);
+  border: 1px solid rgba(255,107,26,.2);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  animation: fadeUp .6s .1s both;
+}
+.hero-tagline .live-dot {
+  width: 7px; height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.hero-name {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(48px, 8vw, 84px);
+  line-height: .92;
+  letter-spacing: -2px;
+  color: var(--black);
+  margin-bottom: 12px;
+  animation: fadeUp .6s .2s both;
+}
+.hero-name .accent {
+  color: var(--orange);
+  position: relative;
+  display: inline-block;
+}
+.hero-name .accent::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 4px;
+  height: 12px;
+  background: rgba(255,107,26,.18);
+  z-index: -1;
+  transform: skewX(-8deg);
+}
+
+.hero-role {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 500;
+  color: var(--g-500);
+  margin-bottom: 24px;
+  animation: fadeUp .6s .3s both;
+}
+.hero-role strong { color: var(--blue); font-weight: 700; }
+
+.hero-bio {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--g-700);
+  margin-bottom: 36px;
+  max-width: 560px;
+  animation: fadeUp .6s .4s both;
+}
+
+/* CTA buttons */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  animation: fadeUp .6s .5s both;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.btn-primary {
+  background: var(--black);
+  color: white;
+  box-shadow: 0 4px 0 var(--char);
+}
+.btn-primary:hover {
+  background: var(--orange);
+  box-shadow: 0 6px 16px rgba(255,107,26,.4), 0 4px 0 var(--or-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--g-200);
+}
+.btn-outline:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--bl-soft);
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  color: white;
+}
+.btn-whatsapp:hover {
+  background: #1ebe57;
+  box-shadow: 0 6px 16px rgba(37,211,102,.4);
+}
+
+/* hero side card */
+.hero-card {
+  position: relative;
+  animation: fadeUp .8s .4s both;
+}
+.hero-photo {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--ink), var(--char));
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+}
+.hero-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.hero-photo .initials {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 140px;
+  color: white;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.hero-photo .initials .or { color: var(--orange); }
+
+/* floating badges around photo */
+.hero-photo .badge {
+  position: absolute;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 2;
+}
+.badge-1 {
+  top: 20px; right: -20px;
+  animation: float 3s ease-in-out infinite;
+}
+.badge-2 {
+  bottom: 24px; left: -20px;
+  animation: float 3s ease-in-out infinite .8s;
+}
+.badge .ic {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.badge .ic.or { background: var(--or-soft); color: var(--orange); }
+.badge .ic.bl { background: var(--bl-soft); color: var(--blue); }
+.badge .label { font-size: 10px; color: var(--g-500); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+.badge .val { font-size: 13px; color: var(--ink); }
+
+@media (max-width: 920px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-card { max-width: 320px; margin: 0 auto; order: -1; }
+  .hero-photo .initials { font-size: 110px; }
+  .hero { padding: 50px 0 70px; }
+}
+
+@media (max-width: 480px) {
+  .hero-actions .btn { flex: 1; justify-content: center; padding: 13px 16px; font-size: 13px; }
+  .badge-1 { right: -10px; padding: 8px 12px; }
+  .badge-2 { left: -10px; padding: 8px 12px; }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION COMMON
+═══════════════════════════════════════════════ */
+.section {
+  padding: 80px 0;
+  position: relative;
+}
+.section-alt {
+  background: var(--white);
+  border-top: 1px solid var(--g-100);
+  border-bottom: 1px solid var(--g-100);
+}
+
+.section-head {
+  margin-bottom: 48px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--orange);
+}
+
+.section-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(32px, 5vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  color: var(--black);
+}
+.section-title .accent { color: var(--blue); }
+
+.section-meta {
+  font-size: 14px;
+  color: var(--g-500);
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .section { padding: 60px 0; }
+  .section-head { margin-bottom: 32px; }
+}
+
+/* ═══════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.stat {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--g-100);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--orange);
+}
+.stat-value {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--black);
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+.stat-value.or { color: var(--orange); }
+.stat-value.bl { color: var(--blue); }
+.stat-label {
+  font-size: 13px;
+  color: var(--g-500);
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat { padding: 18px; }
+  .stat-value { font-size: 28px; }
+}
+
+/* ═══════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════ */
+.about-text {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--g-700);
+  max-width: 800px;
+}
+.about-text strong { color: var(--ink); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════
+   EXPERIENCE TIMELINE
+═══════════════════════════════════════════════ */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 12px; bottom: 12px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--orange), var(--blue));
+}
+
+.exp-item {
+  position: relative;
+  background: white;
+  border: 1px solid var(--g-100);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.exp-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow);
+  border-color: var(--orange);
+}
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: -28px; top: 32px;
+  width: 14px; height: 14px;
+  background: white;
+  border: 3px solid var(--orange);
+  border-radius: 50%;
+}
+.exp-item:nth-child(2)::before { border-color: var(--blue); }
+
+.exp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.exp-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--black);
+  letter-spacing: -.3px;
+}
+.exp-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--bl-soft);
+  color: var(--blue);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.exp-period::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+}
+.exp-company {
+  font-size: 14px;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.exp-list {
+  list-style: none;
+}
+.exp-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14.5px;
+  color: var(--g-700);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.exp-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 12px; height: 2px;
+  background: var(--orange);
+  border-radius: 1px;
+}
+
+@media (max-width: 720px) {
+  .timeline { padding-left: 24px; }
+  .timeline::before { left: 8px; }
+  .exp-item { padding: 18px 20px; }
+  .exp-item::before { left: -20px; top: 24px; width: 10px; height: 10px; border-width: 2px; }
+  .exp-title { font-size: 17px; }
+}
+
+/* ═══════════════════════════════════════════════
+   PROJECTS GRID
+═══════════════════════════════════════════════ */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.project {
+  background: white;
+  border: 1px solid var(--g-100);
+  border-radius: 18px;
+  padding: 24px;
+  position: relative;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  display: flex;
+  flex-direction: column;
+}
+.project:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: var(--orange);
+}
+
+.project-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+.project-icon.or { background: var(--or-soft); color: var(--orange); }
+.project-icon.bl { background: var(--bl-soft); color: var(--blue); }
+.project-icon.dk { background: var(--ink); color: white; }
+
+.project-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 8px;
+  letter-spacing: -.3px;
+}
+.project-desc {
+  font-size: 14px;
+  color: var(--g-500);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.project-tag {
+  padding: 4px 10px;
+  background: var(--g-50);
+  border: 1px solid var(--g-100);
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--g-700);
+}
+
+/* ═══════════════════════════════════════════════
+   SKILLS
+═══════════════════════════════════════════════ */
+.skill-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.skill-block {
+  background: white;
+  border: 1px solid var(--g-100);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform .25s, box-shadow .25s;
+}
+.skill-block:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+.skill-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.skill-head-ic {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.skill-head-ic.or { background: var(--or-soft); color: var(--orange); }
+.skill-head-ic.bl { background: var(--bl-soft); color: var(--blue); }
+.skill-head-ic.gr { background: var(--g-50); color: var(--g-700); }
+.skill-head-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--black);
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.skill-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid;
+}
+.skill-pill.or { background: var(--or-soft); color: var(--orange); border-color: rgba(255,107,26,.2); }
+.skill-pill.bl { background: var(--bl-soft); color: var(--blue); border-color: rgba(37,83,245,.2); }
+.skill-pill.gr { background: var(--g-50); color: var(--g-700); border-color: var(--g-100); }
+
+/* languages */
+.lang-block {
+  background: white;
+  border: 1px solid var(--g-100);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+}
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+.lang-row + .lang-row { border-top: 1px solid var(--g-100); }
+.lang-flag {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.lang-flag.ar { background: var(--or-soft); color: var(--orange); }
+.lang-flag.en { background: var(--bl-soft); color: var(--blue); }
+.lang-info { flex: 1; }
+.lang-name { font-size: 15px; font-weight: 700; color: var(--ink); }
+.lang-level { font-size: 12.5px; color: var(--g-500); margin-top: 2px; }
+.lang-bar {
+  flex: 1;
+  max-width: 160px;
+  height: 6px;
+  background: var(--g-100);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.lang-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1.2s cubic-bezier(.22,1,.36,1);
+  width: 0;
+}
+.lang-fill.or { background: linear-gradient(90deg, var(--orange), #ff9050); }
+.lang-fill.bl { background: linear-gradient(90deg, var(--blue), #5680ff); }
+
+@media (max-width: 480px) {
+  .lang-bar { max-width: 80px; }
+}
+
+/* ═══════════════════════════════════════════════
+   EDUCATION
+═══════════════════════════════════════════════ */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.edu-item {
+  background: white;
+  border: 1px solid var(--g-100);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.edu-item:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.edu-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--orange);
+}
+.edu-item.bl::before { background: var(--blue); }
+
+.edu-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--or-soft);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.edu-item.bl .edu-status { background: var(--bl-soft); color: var(--blue); }
+
+.edu-degree {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 6px;
+  letter-spacing: -.3px;
+  line-height: 1.25;
+}
+.edu-school {
+  font-size: 14px;
+  color: var(--g-500);
+  margin-bottom: 12px;
+}
+.edu-meta {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 600;
+  padding-top: 12px;
+  border-top: 1px solid var(--g-100);
+}
+
+/* ═══════════════════════════════════════════════
+   CONTACT FOOTER
+═══════════════════════════════════════════════ */
+.contact {
+  background: var(--black);
+  color: white;
+  padding: 80px 0 40px;
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.contact > * { position: relative; z-index: 1; }
+
+.contact-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.contact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.contact-eyebrow::before, .contact-eyebrow::after {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--orange);
+}
+.contact-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.contact-title .accent { color: var(--orange); }
+.contact-sub {
+  font-size: 16px;
+  color: var(--g-400);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* contact cards */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.contact-card {
+  background: var(--char);
+  border: 1px solid #2c2d36;
+  border-radius: 16px;
+  padding: 24px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+.contact-card:hover {
+  background: #2c2d36;
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.contact-card .ic {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .25s;
+}
+.contact-card.bl .ic { background: var(--blue); }
+.contact-card.wa .ic { background: #25D366; }
+.contact-card .ic svg { width: 20px; height: 20px; color: white; }
+.contact-card .label { font-size: 11px; color: var(--g-400); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.contact-card .value { font-size: 15px; font-weight: 700; word-break: break-all; line-height: 1.3; margin-top: 2px; }
+
+.contact-foot {
+  text-align: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--char);
+  font-size: 13px;
+  color: var(--g-500);
+}
+.contact-foot a { color: var(--orange); text-decoration: none; }
+
+@media (max-width: 720px) {
+  .contact { padding: 60px 0 30px; }
+  .contact-head { margin-bottom: 32px; }
+  .contact-card { padding: 18px; gap: 12px; }
+  .contact-card .ic { width: 38px; height: 38px; }
+}
+
+/* hidden ATS keywords */
+.ats-hidden {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<span class="ats-hidden">
+  Amr Ebrahim Kamal Full-Stack Developer Software Business Analyst Web Development Python
+  N8N Automation E-Commerce Business Information Systems AMIT CIB Cairo Egypt amrhima41
+</span>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo" aria-label="Amr Ebrahim Kamal">
+      <svg class="nav-logo-mark" width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#0a0a0e"/>
+        <path d="M28.5 11.5C24 11.5 19 15 16 19c-2.5 3.3-3.5 7-3.5 9.5 0 0 6.5-1.2 11-5.7C28 18.3 28.5 11.5 28.5 11.5z" fill="#ff6b1a"/>
+        <line x1="22" y1="18" x2="11" y2="29" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="20" y1="21.5" x2="16" y2="21.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+      </svg>
+      <span class="nav-logo-name">Amr Ebrahim<span class="dot">.</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header id="top" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="hero-tagline">
+          <span class="live-dot"></span>
+          Available for opportunities
+        </span>
+        <h1 class="hero-name">
+          Amr <span class="accent">Ebrahim</span><br>
+          Kamal
+        </h1>
+        <p class="hero-role">
+          <strong>Full-Stack Developer</strong> · Business Analyst · Automation Engineer
+        </p>
+        <p class="hero-bio">
+          22-year-old technology professional building real-world solutions for paying clients —
+          from web applications to N8N automation pipelines and e-commerce platforms.
+          Currently pursuing BSc Business Information Systems in Cairo.
+        </p>
+
+        <div class="hero-actions">
+          <a href="./Amr_Ebrahim_Kamal_CV.docx" download class="btn btn-primary">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
+          </a>
+          <a href="https://wa.me/201061023320" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="mailto:amrhima41@gmail.com" class="btn btn-outline">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-photo">
+          <div class="initials">A<span class="or">K</span></div>
+          <div class="badge badge-1">
+            <div class="ic or">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div class="label">Status</div>
+              <div class="val">Open to Work</div>
+            </div>
+          </div>
+          <div class="badge badge-2">
+            <div class="ic bl">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="label">Live in</div>
+              <div class="val">Cairo, Egypt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about" class="section section-alt reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">About Me</div>
+        <h2 class="section-title">A bit <span class="accent">about</span> myself</h2>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value or">22</div>
+        <div class="stat-label">Years Old</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value bl">4+</div>
+        <div class="stat-label">Years Coaching</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value or">3+</div>
+        <div class="stat-label">Real Client Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value bl">2027</div>
+        <div class="stat-label">Expected Graduation</div>
+      </div>
+    </div>
+
+    <p class="about-text">
+      Driven, curious, and entrepreneurial — I bridge the gap between <strong>business needs</strong>
+      and <strong>technical execution</strong>. My experience spans full-stack web development, intelligent
+      automation with N8N, and end-to-end e-commerce builds. Beyond tech, four years of professional
+      coaching at TFG Gym shaped a discipline-first mindset and the kind of client communication skills
+      that translate directly to delivering software people actually use.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section id="experience" class="section reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Career</div>
+        <h2 class="section-title">Work <span class="accent">Experience</span></h2>
+      </div>
+      <div class="section-meta">2021 — Present</div>
+    </div>
+
+    <div class="timeline">
+
+      <article class="exp-item">
+        <div class="exp-head">
+          <h3 class="exp-title">Banking Operations Intern</h3>
+          <span class="exp-period">Summer Program</span>
+        </div>
+        <div class="exp-company">CIB — Commercial International Bank</div>
+        <ul class="exp-list">
+          <li>Practical exposure to core banking operations and enterprise financial workflows.</li>
+          <li>Hands-on with financial documentation, client processes, and operational standards.</li>
+          <li>Inside view of how a leading Egyptian bank runs its day-to-day business.</li>
+        </ul>
+      </article>
+
+      <article class="exp-item">
+        <div class="exp-head">
+          <h3 class="exp-title">Personal Trainer</h3>
+          <span class="exp-period">4+ Years</span>
+        </div>
+        <div class="exp-company">TFG Gym</div>
+        <ul class="exp-list">
+          <li>Designed and ran personalised training programmes for a broad client base over four years.</li>
+          <li>Built long-term client relationships through goal tracking, accountability, and real results.</li>
+          <li>Honed leadership, communication, and time-management skills under daily performance pressure.</li>
+          <li>Consistently exceeded client targets in a results-focused environment.</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects" class="section section-alt reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Selected Work</div>
+        <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
+      </div>
+      <div class="section-meta">Real client work · End-to-end</div>
+    </div>
+
+    <div class="projects">
+
+      <div class="project">
+        <div class="project-icon or">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="project-title">Client Web Applications</h3>
+        <p class="project-desc">
+          Multiple full-stack applications delivered end-to-end for paying clients. Owned the entire
+          lifecycle from requirements gathering and UX design through development, testing, and live deployment.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Full-Stack</span>
+          <span class="project-tag">Client Work</span>
+          <span class="project-tag">Web Apps</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-icon bl">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3 class="project-title">Workflow Automation</h3>
+        <p class="project-desc">
+          Built intelligent business automation pipelines using N8N for multiple clients — connecting
+          third-party APIs and eliminating repetitive manual work. Measurable efficiency gains delivered.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">N8N</span>
+          <span class="project-tag">REST APIs</span>
+          <span class="project-tag">Process Automation</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-icon dk">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        </div>
+        <h3 class="project-title">E-Commerce Platform</h3>
+        <p class="project-desc">
+          Designed and shipped a full e-commerce website — product catalogue, shopping cart, checkout flow,
+          and payment integration. Mobile-first responsive design with focus on conversion-friendly UX.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">E-Commerce</span>
+          <span class="project-tag">Responsive UX</span>
+          <span class="project-tag">Payments</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills" class="section reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Capabilities</div>
+        <h2 class="section-title">Skills & <span class="accent">Tools</span></h2>
+      </div>
+    </div>
+
+    <div class="skill-blocks">
+
+      <div class="skill-block">
+        <div class="skill-head">
+          <div class="skill-head-ic or">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="skill-head-title">Development</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-pill or">Web Design</span>
+          <span class="skill-pill or">Full-Stack Dev</span>
+          <span class="skill-pill or">Python</span>
+          <span class="skill-pill or">E-Commerce</span>
+          <span class="skill-pill or">Responsive Design</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-head">
+          <div class="skill-head-ic bl">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="skill-head-title">Automation & Analysis</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-pill bl">N8N Automation</span>
+          <span class="skill-pill bl">API Integration</span>
+          <span class="skill-pill bl">Business Analysis</span>
+          <span class="skill-pill bl">ERP Systems</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-head">
+          <div class="skill-head-ic gr">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="skill-head-title">Tools & Soft Skills</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-pill gr">MS Excel</span>
+          <span class="skill-pill gr">MS Word</span>
+          <span class="skill-pill gr">Canva</span>
+          <span class="skill-pill gr">Claude AI</span>
+          <span class="skill-pill gr">Client Communication</span>
+          <span class="skill-pill gr">Problem Solving</span>
+          <span class="skill-pill gr">Leadership</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="lang-block">
+      <div class="skill-head">
+        <div class="skill-head-ic gr">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div class="skill-head-title">Languages</div>
+      </div>
+      <div class="lang-row">
+        <div class="lang-flag ar">ع</div>
+        <div class="lang-info">
+          <div class="lang-name">Arabic</div>
+          <div class="lang-level">Native speaker</div>
+        </div>
+        <div class="lang-bar"><div class="lang-fill or" data-pct="100"></div></div>
+      </div>
+      <div class="lang-row">
+        <div class="lang-flag en">EN</div>
+        <div class="lang-info">
+          <div class="lang-name">English</div>
+          <div class="lang-level">B2 — Upper Intermediate</div>
+        </div>
+        <div class="lang-bar"><div class="lang-fill bl" data-pct="72"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EDUCATION ═══════════ -->
+<section id="education" class="section section-alt reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Academic Background</div>
+        <h2 class="section-title"><span class="accent">Education</span> & Certifications</h2>
+      </div>
+    </div>
+
+    <div class="edu-grid">
+      <div class="edu-item">
+        <span class="edu-status">In Progress</span>
+        <div class="edu-degree">BSc Business Information Systems</div>
+        <div class="edu-school">Sadat Academy for Management Sciences (SAMS)</div>
+        <div class="edu-meta">3rd Year · Expected Graduation 2027</div>
+      </div>
+
+      <div class="edu-item bl">
+        <span class="edu-status">Certified</span>
+        <div class="edu-degree">Full-Stack Web Development</div>
+        <div class="edu-school">AMIT Learning</div>
+        <div class="edu-meta">Professional Certificate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact" class="contact reveal">
+  <div class="wrap">
+    <div class="contact-head">
+      <div class="contact-eyebrow">Get In Touch</div>
+      <h2 class="contact-title">Let's <span class="accent">work</span> together</h2>
+      <p class="contact-sub">
+        Got a project in mind, an opportunity to discuss, or just want to say hi? Pick your channel —
+        I usually reply within a few hours.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <a href="https://wa.me/201061023320" target="_blank" rel="noopener noreferrer" class="contact-card wa">
+        <div class="ic">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div>
+          <div class="label">WhatsApp</div>
+          <div class="value">+20 106 102 3320</div>
+        </div>
+      </a>
+
+      <a href="mailto:amrhima41@gmail.com" class="contact-card">
+        <div class="ic">
+          <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="label">Email</div>
+          <div class="value">amrhima41@gmail.com</div>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/amr-ibrahim-ab89323a9" target="_blank" rel="noopener noreferrer" class="contact-card bl">
+        <div class="ic">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79zM6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68zm1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </div>
+        <div>
+          <div class="label">LinkedIn</div>
+          <div class="value">View Profile</div>
+        </div>
+      </a>
+
+      <a href="https://github.com/AmrIbrahim41" target="_blank" rel="noopener noreferrer" class="contact-card bl">
+        <div class="ic">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </div>
+        <div>
+          <div class="label">GitHub</div>
+          <div class="value">@AmrIbrahim41</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="contact-foot">
+      © <span id="yr"></span> Amr Ebrahim Kamal · Built with care · <a href="./Amr_Ebrahim_Kamal_CV.docx" download>Download Word CV</a>
+    </div>
+  </div>
+</section>
+
+<script>
+// dynamic copyright year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// mobile nav toggle
+const burger = document.getElementById('navBurger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+  });
+});
+document.addEventListener('click', e => {
+  if (!burger.contains(e.target) && !navLinks.contains(e.target)) {
+    navLinks.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+  }
+});
+
+// scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      if (entry.target.id === 'skills') {
+        document.querySelectorAll('.lang-fill').forEach(el => {
+          el.style.width = el.dataset.pct + '%';
+        });
+      }
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
